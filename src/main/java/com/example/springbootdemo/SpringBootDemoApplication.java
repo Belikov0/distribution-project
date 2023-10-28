@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("com.example.springbootdemo.mapper")
+
 public class SpringBootDemoApplication {
 
     public static void main(String[] args) {

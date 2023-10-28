@@ -1,4 +1,4 @@
-package com.example.springbootdemo.config;
+package com.example.springbootdemo.config.datasource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -15,27 +15,29 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = "com.example.springbootdemo.mapper.admin", sqlSessionFactoryRef = "AdminSqlSessionFactory")
-public class AdminDataSourceConfigurer {
+@MapperScan(basePackages = "com.example.springbootdemo.mapper.worker", sqlSessionFactoryRef = "WorkerSqlSessionFactory")
+public class WorkerDataSourceConfigurer {
 
-    @Bean("adminDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.admin")
+    @Bean("workerDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.worker")
     public DataSource workerDatasource(){
         return DataSourceBuilder.create().build();
     }
 
-    @Bean(name="AdminSqlSessionFactory")
-    public SqlSessionFactory workerSqlSessionFactory(@Qualifier("adminDataSource") DataSource dataSource) throws Exception {
+    @Bean(name="WorkerSqlSessionFactory")
+    @Primary
+    public SqlSessionFactory workerSqlSessionFactory(@Qualifier("workerDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         bean.setMapperLocations(
-                new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/AdminMapper.xml")
+                new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/WorkerMapper.xml")
         );
         return bean.getObject();
     }
 
-    @Bean("AdminSqlSessionTemplate")
-    public SqlSessionTemplate workerSqlSessionTemplate(@Qualifier("AdminSqlSessionFactory") SqlSessionFactory sessionFactory){
+    @Bean("WorkerSqlSessionTemplate")
+    @Primary
+    public SqlSessionTemplate workerSqlSessionTemplate(@Qualifier("WorkerSqlSessionFactory") SqlSessionFactory sessionFactory){
         return new SqlSessionTemplate(sessionFactory);
     }
 }

@@ -11,4 +11,7 @@ import java.util.List;
 @Component
 public interface WorkerMapper {
     List<WorkerBean> findAll();
+
+    WorkerBean queryPersonalInformation(String worker_id);
+
 }

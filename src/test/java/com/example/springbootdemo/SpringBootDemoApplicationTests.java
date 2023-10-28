@@ -1,6 +1,5 @@
 package com.example.springbootdemo;
 
-import com.example.springbootdemo.bean.UserBean;
 //import com.example.springbootdemo.service.UserService;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;

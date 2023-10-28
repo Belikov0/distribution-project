@@ -17,10 +17,10 @@ public class newController {
 
 
     @GetMapping("/worker")
-    public String query(){
+    public List<WorkerBean> query(){
         List<WorkerBean> workerBeans = workerMapper.findAll();
         System.out.println(workerBeans);
-        return "查询用户";
+        return  workerBeans;
     }
 
 }

@@ -6,7 +6,7 @@ public class WorkerBean {
     private String worker_gender;
     private int worker_age;
     private String worker_tel;
-    private String worker_depart_id;
+    private String depart_name;
 
     public String getWorker_id() {
         return worker_id;
@@ -48,12 +48,12 @@ public class WorkerBean {
         this.worker_tel = worker_tel;
     }
 
-    public String getWorker_depart_id() {
-        return worker_depart_id;
+    public String getDepart_name() {
+        return depart_name;
     }
 
-    public void setWorker_depart_id(String worker_depart_id) {
-        this.worker_depart_id = worker_depart_id;
+    public void setDepart_name(String depart_name) {
+        this.depart_name = depart_name;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class WorkerBean {
                 ", worker_gender='" + worker_gender + '\'' +
                 ", worker_age=" + worker_age +
                 ", worker_tel='" + worker_tel + '\'' +
-                ", worker_depart_id='" + worker_depart_id + '\'' +
+                ", depart_name='" + depart_name + '\'' +
                 '}';
     }
 }
