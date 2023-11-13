@@ -14,18 +14,20 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
 
+
+
 @Configuration
 @MapperScan(basePackages = "com.example.springbootdemo.mapper.admin", sqlSessionFactoryRef = "AdminSqlSessionFactory")
 public class AdminDataSourceConfigurer {
 
     @Bean("adminDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.admin")
-    public DataSource workerDatasource(){
+    public DataSource adminDatasource(){
         return DataSourceBuilder.create().build();
     }
 
     @Bean(name="AdminSqlSessionFactory")
-    public SqlSessionFactory workerSqlSessionFactory(@Qualifier("adminDataSource") DataSource dataSource) throws Exception {
+    public SqlSessionFactory adminSqlSessionFactory(@Qualifier("adminDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         bean.setMapperLocations(
@@ -35,7 +37,7 @@ public class AdminDataSourceConfigurer {
     }
 
     @Bean("AdminSqlSessionTemplate")
-    public SqlSessionTemplate workerSqlSessionTemplate(@Qualifier("AdminSqlSessionFactory") SqlSessionFactory sessionFactory){
+    public SqlSessionTemplate adminSqlSessionTemplate(@Qualifier("AdminSqlSessionFactory") SqlSessionFactory sessionFactory){
         return new SqlSessionTemplate(sessionFactory);
     }
 }
