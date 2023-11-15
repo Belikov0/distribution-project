@@ -1,5 +1,6 @@
 package com.example.springbootdemo.config;
 
+import com.example.springbootdemo.interceptor.AdminJwtInterceptor;
 import com.example.springbootdemo.interceptor.WorkerJwtInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,11 @@ public class WebConfigurer implements WebMvcConfigurer {
     @Bean
     public HandlerInterceptor getWorkerJwtInterceptor(){
         return new WorkerJwtInterceptor();
+    }
+
+    @Bean
+    public HandlerInterceptor getAdminJwtInterceptor(){
+        return new AdminJwtInterceptor();
     }
 
     /**
@@ -38,7 +44,10 @@ public class WebConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(getWorkerJwtInterceptor())
                 .addPathPatterns("/worker/**")
-                .excludePathPatterns("/worker/login");
+                .excludePathPatterns("/worker/logIn");
+        registry.addInterceptor(getAdminJwtInterceptor())
+                .addPathPatterns("/admin/**")
+                .excludePathPatterns("/admin/logIn");
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 

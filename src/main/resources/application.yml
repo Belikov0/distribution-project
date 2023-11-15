@@ -8,7 +8,7 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
     admin:
       name: attedancesystem
-      jdbc-url: jdbc:mysql://localhost:3306/attedancesystem?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      jdbc-url: jdbc:mysql://localhost:3306/attendancesystem?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       username: Admin
       password: 12345678
       driver-class-name: com.mysql.cj.jdbc.Driver

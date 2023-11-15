@@ -5,10 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Getter
-@ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-public class ServiceException extends  RuntimeException {
-
-    public ServiceException(String message) {
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException{
+    public ResourceNotFoundException(String message) {
         super(message);
     }
 }

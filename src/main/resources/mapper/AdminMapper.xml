@@ -4,4 +4,8 @@
     <select id="testify" resultType="com.example.springbootdemo.bean.WorkerBean">
         SELECT * from administrator
     </select>
+
+    <select id="selectAdminById" resultType="com.example.springbootdemo.bean.AdminBean">
+        SELECT * from administrator where admin_id=#{admin_id}
+    </select>
 </mapper>

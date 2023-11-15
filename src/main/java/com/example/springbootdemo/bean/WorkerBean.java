@@ -15,7 +15,7 @@ public class WorkerBean {
     private int worker_age;
     private String worker_tel;
     private String depart_name;
-    private String token;
+
 
 
 }

@@ -11,5 +11,4 @@ import lombok.ToString;
 public class AdminBean {
     private String admin_id;
     private String admin_password;
-
 }

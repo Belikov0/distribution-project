@@ -1,31 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springbootdemo.mapper.worker.WorkerMapper">
-    <select id="findAll" resultType="com.example.springbootdemo.bean.WorkerBean">
+
+
+    <select id="selectWorkerById" parameterType="String" resultType="com.example.springbootdemo.bean.WorkerBean">
+        select worker_id, worker_name, worker_gender, worker_age, worker_tel, depart_name
+        from worker left join department on worker.worker_depart_id=department.depart_id where worker_id=#{worker_id}
+    </select>
+
+    <select id="selectAllFromWorkers" resultType="com.example.springbootdemo.bean.WorkerBean">
         select worker_id, worker_name, worker_gender, worker_age, worker_tel, depart_name
         from worker join department on worker.worker_depart_id=department.depart_id
     </select>
 
-<!--  查询本人信息  -->
-    <select id="queryPersonalInformation" parameterType="String" resultType="com.example.springbootdemo.bean.WorkerBean">
-        select worker_id, worker_name, worker_gender, worker_age, worker_tel, depart_name
-        from worker left join department on worker.worker_depart_id=department.depart_id where worker_id=#{worker_id}
-    </select>
-<!--    查询本月出勤  -->
-    <select id="queryPersonalMonthlyAttendance" parameterType="String" resultType="com.example.springbootdemo.bean.AttendanceBean">
-        select worker_id, worker_name, attendance_day, attendance_time, attendance_type, attendance_status
-        from worker left join attendance on worker.worker_id=attendance.worker_id
-        where worker_id=#{worker_id} and month(attendance_day)=month(now())
+    <select id="selectDailyAttendanceById" parameterType="String" resultType="com.example.springbootdemo.bean.AttendanceBean">
+        select * from attendance, worker where worker_id=#{worker_id} and attendance_date=#{date}
     </select>
 
-<!-- 查询今日签到状态 -->
-    <select id="queryPersonalDailyAttendance" parameterType="String" resultType="com.example.springbootdemo.bean.AttendanceBean">
-        select worker_id, worker_name, attendance_day, attendance_time, attendance_type, attendance_status
-        from worker left join attendance on worker.worker_id=attendance.worker_id
-        where worker_id=#{worker_id} and day(attendance_day)=day(now())
+    <select id="selectLastAttendanceId" resultType="String">
+        select attendance_id from attendance
+        where attendance_date=(select max(attendance_date) from attendance)
+        order by attendance_time desc limit 1
     </select>
 
-<!--    查询指定日期的签到状态 -->
+    <select id="selectLastAttendanceByWorkerId" parameterType="String" resultType="com.example.springbootdemo.bean.AttendanceBean">
+        select * from attendance, worker
+                 where attendance.worker_id=worker.worker_id
+                   and attendance_date=(select max(attendance_date) from attendance where attendance.worker_id=#{worker_id})
+                    and attendance.worker_id=#{worker_id} order by attendance_time desc limit 1
+    </select>
+
+
+    <select id="selectSignInTimeByWorkerId" parameterType="String" resultType="java.sql.Time">
+        SELECT
+    </select>
+
+
+    <insert id="insertIntoAttendance" parameterType="String">
+        insert into Attendance values (#{attendance_id}, #{worker_id}, #{date}, #{time}, #{type}, #{status})
+    </insert>
+
+
+
 
 
 </mapper>

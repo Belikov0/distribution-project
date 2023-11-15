@@ -11,4 +11,7 @@ import java.util.List;
 public interface AdminMapper {
 
     List<AdminBean> testify();
+
+    AdminBean selectAdminById(String admin_id);
+
 }
